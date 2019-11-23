@@ -3,16 +3,16 @@
     "meta": {
         "version": "PTDL_v1"
     },
-    "exported_at": "2019-10-17T17:45:50+02:00",
+    "exported_at": "2019-11-23T17:56:34+01:00",
     "name": "Kajbot",
-    "author": "jens@jensz12.com",
+    "author": "jonas@jensbot.dk",
     "description": "Kajbot til discord",
     "image": "quay.io\/pterodactyl\/core:java",
-    "startup": "java -Xms128M -Xmx{{SERVER_MEMORY}}M -jar kajbot.jar",
+    "startup": "java -Xms1M  -Xmx{{SERVER_MEMORY}}M -jar kajbot.jar",
     "config": {
-        "files": "{\r\n    \"config.properties\": {\r\n        \"parser\": \"properties\",\r\n        \"find\": {\r\n            \"Language\": \"{{server.build.env.LANGUAGE}}\",\r\n            \"API.port\": \"{{server.build.env.API_PORT}}\",\r\n            \"API.enabled\": \"{{server.build.env.API_ENABLED}}\",\r\n            \"Bot.token\": \"{{server.build.env.BOT_TOKEN}}\",\r\n            \"Bot.prefix\": \"{{server.build.env.BOT_PREFIX}}\",\r\n            \"Bot.ownerID\": \"{{server.build.env.BOT_OWNER_ID}}\",\r\n            \"Bot.adminRole\": \"{{server.build.env.BOT_ADMIN_ROLE}}\",\r\n            \"Bot.game\": \"{{server.build.env.BOT_GAME}}\",\r\n            \"Chat.linkBlacklist\": \"{{server.build.env.CHAT_LINK_BLACKLIST}}\",\r\n            \"Chat.bypassRole\": \"{{server.build.env.CHAT_BYPASS_ROLE}}\",\r\n            \"Chat.logging\": \"{{server.build.env.CHAT_LOGGING}}\",\r\n            \"Chat.logChannelID\": \"{{server.build.env.CHAT_LOGGING_CHANNEL_ID}}\",\r\n            \"Notifications.channelID\": \"{{server.build.env.NOTIFICATIONS_CHANNEL_ID}}\",\r\n            \"Twitch.clientID\": \"{{server.build.env.TWITCH_CLIENT_ID}}\",\r\n            \"Twitch.channels\": \"{{server.build.env.TWITCH_CHANNELS}}\",\r\n            \"Twitch.notifications\": \"{{server.build.env.TWITCH_NOTIFICATIONS}}\",\r\n            \"YouTube.key\": \"{{server.build.env.YOUTUBE_KEY}}\",\r\n            \"YouTube.channels\": \"{{server.build.env.YOUTUBE_CHANNELS}}\",\r\n            \"YouTube.liveNotifications\": \"{{server.build.env.YOUTUBE_LIVE_NOTIFICATIONS}}\",\r\n            \"YouTube.videoNotifications\": \"{{server.build.env.YOUTUBE_VIDEO_NOTIFICATIONS}}\"\r\n        }\r\n    }\r\n}",
+        "files": "{\r\n    \"data\/config.properties\": {\r\n        \"parser\": \"properties\",\r\n        \"find\": {\r\n            \"Language\": \"{{server.build.env.LANGUAGE}}\",\r\n            \"API.port\": \"{{server.build.default.port}}\",\r\n            \"API.enabled\": \"{{server.build.env.API_ENABLED}}\",\r\n            \"Bot.token\": \"{{server.build.env.BOT_TOKEN}}\",\r\n            \"Bot.prefix\": \"{{server.build.env.BOT_PREFIX}}\",\r\n            \"Bot.ownerID\": \"{{server.build.env.BOT_OWNER_ID}}\",\r\n            \"Bot.adminRole\": \"{{server.build.env.BOT_ADMIN_ROLE}}\",\r\n            \"Bot.game\": \"{{server.build.env.BOT_GAME}}\",\r\n            \"Chat.linkBlacklist\": \"{{server.build.env.CHAT_LINK_BLACKLIST}}\",\r\n            \"Chat.bypassRole\": \"{{server.build.env.CHAT_BYPASS_ROLE}}\",\r\n            \"Chat.logging\": \"{{server.build.env.CHAT_LOGGING}}\",\r\n            \"Chat.logChannelID\": \"{{server.build.env.CHAT_LOGGING_CHANNEL_ID}}\",\r\n            \"Notifications.channelID\": \"{{server.build.env.NOTIFICATIONS_CHANNEL_ID}}\",\r\n            \"Twitch.clientID\": \"{{server.build.env.TWITCH_CLIENT_ID}}\",\r\n            \"Twitch.channels\": \"{{server.build.env.TWITCH_CHANNELS}}\",\r\n            \"Twitch.notifications\": \"{{server.build.env.TWITCH_NOTIFICATIONS}}\",\r\n            \"YouTube.key\": \"{{server.build.env.YOUTUBE_KEY}}\",\r\n            \"YouTube.channels\": \"{{server.build.env.YOUTUBE_CHANNELS}}\",\r\n            \"YouTube.liveNotifications\": \"{{server.build.env.YOUTUBE_LIVE_NOTIFICATIONS}}\",\r\n            \"YouTube.videoNotifications\": \"{{server.build.env.YOUTUBE_VIDEO_NOTIFICATIONS}}\",\r\n            \"Mixer.notifications\": \"{{server.build.env.MIXER_NOTIFICATIONS}}\",\r\n            \"Mixer.channels\": \"{{server.build.env.MIXER_CHANNELS}}\"\r\n        }\r\n    }\r\n}",
         "startup": "{\r\n    \"done\": \"Finished Loading!\"\r\n}",
-        "logs": "{\r\n    \"custom\": false,\r\n    \"location\": \"kajbot.log\"\r\n}",
+        "logs": "{\r\n    \"custom\": false,\r\n    \"location\": \"logs\/kajbot.log\"\r\n}",
         "stop": "^C"
     },
     "scripts": {
@@ -31,15 +31,6 @@
             "user_viewable": 1,
             "user_editable": 1,
             "rules": "string"
-        },
-        {
-            "name": "API Port",
-            "description": "",
-            "env_variable": "API_PORT",
-            "default_value": "1337",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "numeric"
         },
         {
             "name": "Bot Token",
@@ -199,6 +190,24 @@
             "description": "",
             "env_variable": "YOUTUBE_VIDEO_NOTIFICATIONS",
             "default_value": "false",
+            "user_viewable": 1,
+            "user_editable": 1,
+            "rules": "string"
+        },
+        {
+            "name": "Mixer Notifications",
+            "description": "",
+            "env_variable": "MIXER_NOTIFICATIONS",
+            "default_value": "false",
+            "user_viewable": 1,
+            "user_editable": 1,
+            "rules": "string"
+        },
+        {
+            "name": "Mixer Channels",
+            "description": "",
+            "env_variable": "MIXER_CHANNELS",
+            "default_value": "",
             "user_viewable": 1,
             "user_editable": 1,
             "rules": "string"

@@ -3,14 +3,14 @@
     "meta": {
         "version": "PTDL_v1"
     },
-    "exported_at": "2019-10-17T20:48:59+02:00",
+    "exported_at": "2019-11-23T17:56:30+01:00",
     "name": "PhantomBot",
-    "author": "jens@jensz12.com",
+    "author": "jonas@jensbot.dk",
     "description": "PhantomBot",
     "image": "quay.io\/pterodactyl\/core:java",
-    "startup": "java -Dinteractive -Xms1m -Dfile.encoding=UTF-8 -jar PhantomBot.jar ${1}",
+    "startup": "java -Dinteractive -Xms1M  -Xmx{{SERVER_MEMORY}}M -Dfile.encoding=UTF-8 -jar PhantomBot.jar ${1}",
     "config": {
-        "files": "{\r\n    \"config\/botlogin.txt\": {\r\n        \"parser\": \"properties\",\r\n        \"find\": {\r\n            \"oauth\": \"{{server.build.env.TMI_OAUTH_TOKEN}}\",\r\n            \"apioauth\": \"{{server.build.env.API_OAUTH_TOKEN}}\",\r\n            \"user\": \"{{server.build.env.BOT_TWITCH_USERNAME}}\",\r\n            \"channel\": \"{{server.build.env.TWITCH_CHANNEL}}\",\r\n            \"paneluser\": \"{{server.build.env.WEB_USER}}\",\r\n            \"panelpassword\": \"{{server.build.env.WEB_PASSWORD}}\",\r\n            \"baseport\": \"{{server.build.env.BASEPORT}}\",\r\n            \"owner\": \"{{server.build.env.OWNER}}\"\r\n        }\r\n    }\r\n}",
+        "files": "{\r\n    \"config\/botlogin.txt\": {\r\n        \"parser\": \"properties\",\r\n        \"find\": {\r\n            \"oauth\": \"{{server.build.env.TMI_OAUTH_TOKEN}}\",\r\n            \"apioauth\": \"{{server.build.env.API_OAUTH_TOKEN}}\",\r\n            \"user\": \"{{server.build.env.BOT_TWITCH_USERNAME}}\",\r\n            \"channel\": \"{{server.build.env.TWITCH_CHANNEL}}\",\r\n            \"paneluser\": \"{{server.build.env.WEB_USERNAME}}\",\r\n            \"panelpassword\": \"{{server.build.env.WEB_PASSWORD}}\",\r\n            \"baseport\": \"{{server.build.default.port}}\",\r\n            \"owner\": \"{{server.build.env.OWNER}}\"\r\n        }\r\n    }\r\n}",
         "startup": "{\r\n    \"done\": \" ready!\",\r\n    \"userInteraction\": []\r\n}",
         "logs": "{\r\n    \"custom\": false,\r\n    \"location\": \"logs\/{date}\"\r\n}",
         "stop": "exit"
@@ -25,25 +25,25 @@
     "variables": [
         {
             "name": "Bot Twitch username",
-            "description": "",
+            "description": "jensbotdk",
             "env_variable": "BOT_TWITCH_USERNAME",
-            "default_value": "",
+            "default_value": "jensbotdk",
             "user_viewable": 1,
-            "user_editable": 1,
+            "user_editable": 0,
             "rules": "required|string"
         },
         {
             "name": "TMI OAuth token",
-            "description": "",
+            "description": "https:\/\/twitchapps.com\/tmi\/",
             "env_variable": "TMI_OAUTH_TOKEN",
-            "default_value": "",
+            "default_value": "oauth:shdd1go04mt28ogsgpnewghhuzfwpn",
             "user_viewable": 1,
-            "user_editable": 1,
+            "user_editable": 0,
             "rules": "required|string"
         },
         {
             "name": "API OAuth token",
-            "description": "",
+            "description": "https:\/\/jensbot.dk\/twitchapi",
             "env_variable": "API_OAUTH_TOKEN",
             "default_value": "",
             "user_viewable": 1,
@@ -78,21 +78,12 @@
             "rules": "required|string"
         },
         {
-            "name": "Baseport",
-            "description": "",
-            "env_variable": "BASEPORT",
-            "default_value": "",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "numeric"
-        },
-        {
             "name": "Owner",
-            "description": "",
+            "description": "Set this as jensz123",
             "env_variable": "OWNER",
-            "default_value": "",
+            "default_value": "jensz123",
             "user_viewable": 1,
-            "user_editable": 1,
+            "user_editable": 0,
             "rules": "string"
         }
     ]
