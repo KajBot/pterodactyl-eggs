@@ -3,14 +3,14 @@
     "meta": {
         "version": "PTDL_v1"
     },
-    "exported_at": "2019-11-23T17:56:44+01:00",
+    "exported_at": "2019-12-22T01:27:23+01:00",
     "name": "Archiva",
     "author": "jonas@jensbot.dk",
     "description": "Apache Archiva\u2122 is an extensible repository management software that helps taking care of your own personal or enterprise-wide build artifact repository. It is the perfect companion for build tools such as Maven, Continuum, and ANT.\r\n\r\nArchiva offers several capabilities, amongst which remote repository proxying, security access management, build artifact storage, delivery, browsing, indexing and usage reporting, extensible scanning functionality\u2026 and many more!",
-    "image": "quay.io\/pterodactyl\/core:java",
+    "image": "quay.io\/parkervcp\/pterodactyl-images:debian_openjdk-8-openj9",
     "startup": ".\/bin\/archiva console",
     "config": {
-        "files": "{\r\n}",
+        "files": "{}",
         "startup": "{\r\n    \"done\": \"Started SelectChannelConnector@0.0.0.0:\",\r\n    \"userInteraction\": []\r\n}",
         "logs": "{\r\n    \"custom\": false,\r\n    \"location\": \"logs\/archiva.log\"\r\n}",
         "stop": "^C"
