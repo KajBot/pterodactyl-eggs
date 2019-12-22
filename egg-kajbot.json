@@ -3,21 +3,21 @@
     "meta": {
         "version": "PTDL_v1"
     },
-    "exported_at": "2019-11-23T17:56:34+01:00",
+    "exported_at": "2019-12-22T01:27:06+01:00",
     "name": "Kajbot",
     "author": "jonas@jensbot.dk",
     "description": "Kajbot til discord",
-    "image": "quay.io\/pterodactyl\/core:java",
+    "image": "quay.io\/parkervcp\/pterodactyl-images:debian_openjdk-8-openj9",
     "startup": "java -Xms1M  -Xmx{{SERVER_MEMORY}}M -jar kajbot.jar",
     "config": {
-        "files": "{\r\n    \"data\/config.properties\": {\r\n        \"parser\": \"properties\",\r\n        \"find\": {\r\n            \"Language\": \"{{server.build.env.LANGUAGE}}\",\r\n            \"API.port\": \"{{server.build.default.port}}\",\r\n            \"API.enabled\": \"{{server.build.env.API_ENABLED}}\",\r\n            \"Bot.token\": \"{{server.build.env.BOT_TOKEN}}\",\r\n            \"Bot.prefix\": \"{{server.build.env.BOT_PREFIX}}\",\r\n            \"Bot.ownerID\": \"{{server.build.env.BOT_OWNER_ID}}\",\r\n            \"Bot.adminRole\": \"{{server.build.env.BOT_ADMIN_ROLE}}\",\r\n            \"Bot.game\": \"{{server.build.env.BOT_GAME}}\",\r\n            \"Chat.linkBlacklist\": \"{{server.build.env.CHAT_LINK_BLACKLIST}}\",\r\n            \"Chat.bypassRole\": \"{{server.build.env.CHAT_BYPASS_ROLE}}\",\r\n            \"Chat.logging\": \"{{server.build.env.CHAT_LOGGING}}\",\r\n            \"Chat.logChannelID\": \"{{server.build.env.CHAT_LOGGING_CHANNEL_ID}}\",\r\n            \"Notifications.channelID\": \"{{server.build.env.NOTIFICATIONS_CHANNEL_ID}}\",\r\n            \"Twitch.clientID\": \"{{server.build.env.TWITCH_CLIENT_ID}}\",\r\n            \"Twitch.channels\": \"{{server.build.env.TWITCH_CHANNELS}}\",\r\n            \"Twitch.notifications\": \"{{server.build.env.TWITCH_NOTIFICATIONS}}\",\r\n            \"YouTube.key\": \"{{server.build.env.YOUTUBE_KEY}}\",\r\n            \"YouTube.channels\": \"{{server.build.env.YOUTUBE_CHANNELS}}\",\r\n            \"YouTube.liveNotifications\": \"{{server.build.env.YOUTUBE_LIVE_NOTIFICATIONS}}\",\r\n            \"YouTube.videoNotifications\": \"{{server.build.env.YOUTUBE_VIDEO_NOTIFICATIONS}}\",\r\n            \"Mixer.notifications\": \"{{server.build.env.MIXER_NOTIFICATIONS}}\",\r\n            \"Mixer.channels\": \"{{server.build.env.MIXER_CHANNELS}}\"\r\n        }\r\n    }\r\n}",
+        "files": "{\r\n    \"data\/config.properties\": {\r\n        \"parser\": \"properties\",\r\n        \"find\": {\r\n            \"Language\": \"{{server.build.env.LANGUAGE}}\",\r\n            \"Bot.token\": \"{{server.build.env.BOT_TOKEN}}\",\r\n            \"Bot.prefix\": \"{{server.build.env.BOT_PREFIX}}\",\r\n            \"Bot.ownerID\": \"{{server.build.env.BOT_OWNER_ID}}\",\r\n            \"Bot.adminRole\": \"{{server.build.env.BOT_ADMIN_ROLE}}\"\r\n        }\r\n    }\r\n}",
         "startup": "{\r\n    \"done\": \"Finished Loading!\"\r\n}",
         "logs": "{\r\n    \"custom\": false,\r\n    \"location\": \"logs\/kajbot.log\"\r\n}",
         "stop": "^C"
     },
     "scripts": {
         "installation": {
-            "script": "#!\/bin\/ash\r\n# Kajbot Installation Script\r\n#\r\n# Server Files: \/mnt\/server\r\napk update\r\napk add curl jq\r\n\r\ncd \/mnt\/server\r\n\r\nlatest=`curl -sL https:\/\/jenkins.jensz12.com\/job\/Kajbot-Discord-Dev\/lastSuccessfulBuild\/api\/json | jq -r '.artifacts[0].fileName'`\r\n\r\ncurl -o kajbot.jar https:\/\/jenkins.jensz12.com\/job\/Kajbot-Discord-Dev\/lastSuccessfulBuild\/artifact\/build\/libs\/${latest}",
+            "script": "#!\/bin\/ash\r\n# Kajbot Installation Script\r\n#\r\n# Server Files: \/mnt\/server\r\napk update\r\napk add curl jq\r\n\r\ncd \/mnt\/server\r\n\r\n#latest=`curl -sL https:\/\/jenkins.jensz12.com\/job\/Kajbot-Discord-Dev\/lastSuccessfulBuild\/api\/json | jq -r '.artifacts[0].fileName'`\r\n\r\n#curl -o kajbot.jar https:\/\/jenkins.jensz12.com\/job\/Kajbot-Discord-Dev\/lastSuccessfulBuild\/artifact\/build\/libs\/${latest}\r\ncurl -o kajbot.jar http:\/\/vps.jensz12.com\/kajbot\/kajbot.jar",
             "container": "alpine:3.4",
             "entrypoint": "ash"
         }
@@ -37,15 +37,6 @@
             "description": "",
             "env_variable": "BOT_TOKEN",
             "default_value": "",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "string"
-        },
-        {
-            "name": "API Enabled",
-            "description": "",
-            "env_variable": "API_ENABLED",
-            "default_value": "true",
             "user_viewable": 1,
             "user_editable": 1,
             "rules": "string"
@@ -73,141 +64,6 @@
             "description": "",
             "env_variable": "BOT_ADMIN_ROLE",
             "default_value": "Bot Admin",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "string"
-        },
-        {
-            "name": "Bot Game",
-            "description": "",
-            "env_variable": "BOT_GAME",
-            "default_value": "Kajbot",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "string"
-        },
-        {
-            "name": "Chat Link Blacklist",
-            "description": "",
-            "env_variable": "CHAT_LINK_BLACKLIST",
-            "default_value": "false",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "string"
-        },
-        {
-            "name": "Chat Bypass Role",
-            "description": "",
-            "env_variable": "CHAT_BYPASS_ROLE",
-            "default_value": "Bot Admin",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "string"
-        },
-        {
-            "name": "Chat Logging",
-            "description": "",
-            "env_variable": "CHAT_LOGGING",
-            "default_value": "true",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "string"
-        },
-        {
-            "name": "Chat Logging Channel ID",
-            "description": "",
-            "env_variable": "CHAT_LOGGING_CHANNEL_ID",
-            "default_value": "",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "numeric"
-        },
-        {
-            "name": "Notifications Channel ID",
-            "description": "",
-            "env_variable": "NOTIFICATIONS_CHANNEL_ID",
-            "default_value": "",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "numeric"
-        },
-        {
-            "name": "Twitch Client ID",
-            "description": "",
-            "env_variable": "TWITCH_CLIENT_ID",
-            "default_value": "",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "string"
-        },
-        {
-            "name": "Twitch Channels",
-            "description": "",
-            "env_variable": "TWITCH_CHANNELS",
-            "default_value": "",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "string"
-        },
-        {
-            "name": "Twitch Notifications",
-            "description": "",
-            "env_variable": "TWITCH_NOTIFICATIONS",
-            "default_value": "false",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "string"
-        },
-        {
-            "name": "YouTube Key",
-            "description": "",
-            "env_variable": "YOUTUBE_KEY",
-            "default_value": "",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "string"
-        },
-        {
-            "name": "YouTube Channels",
-            "description": "",
-            "env_variable": "YOUTUBE_CHANNELS",
-            "default_value": "",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "string"
-        },
-        {
-            "name": "YouTube Live Notifications",
-            "description": "",
-            "env_variable": "YOUTUBE_LIVE_NOTIFICATIONS",
-            "default_value": "false",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "string"
-        },
-        {
-            "name": "YouTube Video Notifications",
-            "description": "",
-            "env_variable": "YOUTUBE_VIDEO_NOTIFICATIONS",
-            "default_value": "false",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "string"
-        },
-        {
-            "name": "Mixer Notifications",
-            "description": "",
-            "env_variable": "MIXER_NOTIFICATIONS",
-            "default_value": "false",
-            "user_viewable": 1,
-            "user_editable": 1,
-            "rules": "string"
-        },
-        {
-            "name": "Mixer Channels",
-            "description": "",
-            "env_variable": "MIXER_CHANNELS",
-            "default_value": "",
             "user_viewable": 1,
             "user_editable": 1,
             "rules": "string"
