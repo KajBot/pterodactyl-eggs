@@ -7,17 +7,17 @@
     "name": "Jenkins",
     "author": "jonas@jensbot.dk",
     "description": "Jenkins is a free and open source automation server written in Java. Jenkins helps to automate the non-human part of the software development process, with continuous integration and facilitating technical aspects of continuous delivery. It is a server-based system that runs in servlet containers such as Apache Tomcat. It supports version control tools, including AccuRev, CVS, Subversion, Git, Mercurial, Perforce, TD/OMS, ClearCase and RTC, and can execute Apache Ant, Apache Maven and sbt based projects as well as arbitrary shell scripts and Windows batch commands. The creator of Jenkins is Kohsuke Kawaguchi.[4] Released under the MIT License, Jenkins is free software.\r\n\r\nBuilds can be triggered by various means, for example by commit in a version control system, by scheduling via a cron-like mechanism and by requesting a specific build URL. It can also be triggered after the other builds in the queue have completed. Jenkins functionality can be extended with plugins.",
-    "image": "quay.io/parkervcp/pterodactyl-images:debian_openjdk-8-openj9",
+    "image": "quay.io/pterodactyl/core:java-11",
     "startup": "java -Dinteractive -Djava.io.tmpdir=/home/container/.tmp -jar jenkins.war --httpPort={{SERVER_PORT}}",
     "config": {
-        "files": "{\r\n    \"/home/container/.jenkins/config.xml\": {\r\n        \"parser\": \"xml\",\r\n        \"find\": {}\r\n    }\r\n}",
+        "files": "{\r\n    \".jenkins/config.xml\": {\r\n        \"parser\": \"xml\",\r\n        \"find\": {}\r\n    }\r\n}",
         "startup": "{\r\n    \"done\": \"Completed initialization\"\r\n}",
         "logs": "{\r\n    \"custom\": false,\r\n    \"location\": \"jenkins.log\"\r\n}",
         "stop": "^C"
     },
     "scripts": {
         "installation": {
-            "script": "#!/bin/bash\n# Jenkins Installation Script\n#\n# Server Files: /mnt/server\n\napt update\napt install -y curl\ncd /mnt/server\ncurl -o jenkins.war https://updates.jenkins.io/latest/jenkins.war\nmkdir /home/container/.tmp\napt install -y ca-certificates",
+            "script": "#!/bin/bash\n# Jenkins Installation Script\n#\n# Server Files: /mnt/server\n\napt update\napt install -y curl\ncd /mnt/server\ncurl -o jenkins.war https://get.jenkins.io/war/latest/jenkins.war\nmkdir .tmp\napt install -y ca-certificates",
             "container": "debian",
             "entrypoint": "/bin/bash"
         }
